@@ -48,18 +48,23 @@ def invalid_urls(urllist: List[str]) -> List[str]:
     """Validate the urls in urllist and return a new list containing
     the invalid or unreachable urls.
     """
-    invalid_link = []
+    invalid_url_link = []
     for test_url in urllist:
         if not is_valid_url(test_url):
-            invalid_link.append(test_url)
-    return invalid_link
+            invalid_url_link.append(test_url)
+    return invalid_url_link
 
 
 if __name__ == '__main__':
     url = sys.argv[1]
-    for link in get_links(url):
+    link_list = get_links(url)
+    invalid_link = invalid_urls(link_list)
+    for link in link_list:
         print(link)
     print()
-    print("Bad Links:")
-    for link in invalid_urls(get_links(url)):
-        print(link)
+    if invalid_link:
+        print("Bad Links:")
+        for link in invalid_link:
+            print(link)
+    else:
+        print("No bad links found.")
