@@ -25,16 +25,18 @@ def get_links(link_page: str):
                 link_page = link_page.split('?')[0]
             if link_page not in links_list:
                 links_list.append(link_page)
+    links_list = set(links_list)
+    links_list = list(links_list)
     return links_list
 
 
-def is_valid_url(url: str):
+def is_valid_url(url_to_test: str):
     """Check if url is valid.
 
     Returns:
         True if url is valid, False otherwise.
     """
-    if requests.head(url).ok:
+    if requests.head(url_to_test).ok:
         return True
     return False
 
@@ -44,9 +46,9 @@ def invalid_urls(urllist: List[str]) -> List[str]:
     the invalid or unreachable urls.
     """
     invalid_link = []
-    for url in urllist:
-        if not is_valid_url(url):
-            invalid_link.append(url)
+    for test_url in urllist:
+        if not is_valid_url(test_url):
+            invalid_link.append(test_url)
     return invalid_link
 
 
