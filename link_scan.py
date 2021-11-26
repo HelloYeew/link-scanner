@@ -2,6 +2,7 @@ from typing import List
 import sys
 import requests
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 
@@ -12,7 +13,9 @@ def get_links(link_page: str):
         a list of all unique hyperlinks on the page,
         without page fragments or query parameters.
     """
-    browser = webdriver.Chrome()
+    browser_option = Options()
+    browser_option.headless = True
+    browser = webdriver.Chrome(options=browser_option)
     browser.get(link_page)
     links = browser.find_elements(By.TAG_NAME, 'a')
     links_list = []
@@ -53,7 +56,6 @@ def invalid_urls(urllist: List[str]) -> List[str]:
 
 
 if __name__ == '__main__':
-    """Main function."""
     url = sys.argv[1]
     for link in get_links(url):
         print(link)
