@@ -28,8 +28,6 @@ def get_links(link_page: str):
                 link_page = link_page.split('?')[0]
             if link_page not in links_list:
                 links_list.append(link_page)
-    links_list = set(links_list)
-    links_list = list(links_list)
     return links_list
 
 
